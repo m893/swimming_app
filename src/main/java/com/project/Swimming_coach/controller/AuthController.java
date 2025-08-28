@@ -9,12 +9,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -34,8 +34,8 @@ public class AuthController {
                     @ApiResponse(responseCode = "400", description = "Invalid input")
             }
     )
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponseDto> register(@RequestBody UserRegisterRequestDto userRegisterRequestDto)
+    @PostMapping(value = "/register", produces = "application/json")
+    public ResponseEntity<AuthResponseDto> register(@Valid @RequestBody UserRegisterRequestDto userRegisterRequestDto)
     {
         AuthResponseDto authResponseDto= userService.register(userRegisterRequestDto);
         return ResponseEntity.ok(authResponseDto);
@@ -48,10 +48,16 @@ public class AuthController {
                     @ApiResponse(responseCode = "401", description = "Invalid credentials")
             }
     )
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = "application/json")
     public ResponseEntity<AuthResponseDto> login(@RequestBody UserLoginRequestDto userLoginRequestDto)
     {
         AuthResponseDto authResponseDto = userService.login(userLoginRequestDto);
         return ResponseEntity.ok(authResponseDto);
     }
+   /* @GetMapping("/accounts")
+    public ResponseEntity<List<AuthResponseDto>> getAllAccounts()
+    {
+        List<AuthResponseDto> list = userService.getAllAccounts();
+        return ResponseEntity.ok(list);
+    }*/
 }

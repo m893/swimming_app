@@ -31,9 +31,9 @@ public class SecurityConfig {
                                 "/swagger-ui.html"
                         ).permitAll()
                         .requestMatchers("/api/v1/auth/**","/error").permitAll()
-                        .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/v1/coach/**").hasAuthority("COACH")
-                        .requestMatchers("/api/v1/parent/**").hasAuthority("PARENT")
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/coach/**").hasRole("COACH")
+                        .requestMatchers("/api/v1/parent/**").hasRole("PARENT")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess

@@ -1,7 +1,9 @@
 package com.project.Swimming_coach.exception;
 
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,17 +21,20 @@ public class GlobalExceptionHandler {
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
 
+
+        String message = "Validation failed. Error count: " + errors.size();
         ValidationErrorResponse response = new ValidationErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Validation failed",
+                message,
                 errors,
                 LocalDateTime.now()
         );
+        System.out.println("first method");
 
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(response);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -39,14 +44,15 @@ public class GlobalExceptionHandler {
                 .map(v -> v.getPropertyPath() + ": " + v.getMessage())
                 .collect(Collectors.toList());
 
+        String message = "Validation failed. Error count: " + errors.size();
         ValidationErrorResponse response = new ValidationErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Validation failed",
+                message,
                 errors,
                 LocalDateTime.now()
         );
-
-        return ResponseEntity.badRequest().body(response);
+        System.out.println("second method");
+        return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(response);
     }
 
     // You can handle other exceptions like custom AppException, etc. here too

@@ -4,12 +4,12 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
-@Data
+
 public class ValidationErrorResponse {
-    private int status;
-    private String message;
-    private List<String> errors;
-    private LocalDateTime timestamp;
+    private final int status;
+    private final String message;
+    private final List<String> errors;
+    private final LocalDateTime timestamp;
 
     public ValidationErrorResponse(int status, String message, List<String> errors, LocalDateTime timestamp) {
         this.status = status;
@@ -18,5 +18,21 @@ public class ValidationErrorResponse {
         this.timestamp = timestamp;
     }
 
-    // Getters and Setters
+    public int getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+// Getters and Setters
 }

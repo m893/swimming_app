@@ -1,5 +1,6 @@
 package com.project.Swimming_coach.service.impl;
 
+import com.project.Swimming_coach.mapper.UserMapper;
 import com.project.Swimming_coach.model.dto.AuthResponseDto;
 import com.project.Swimming_coach.model.dto.UserLoginRequestDto;
 import com.project.Swimming_coach.model.dto.UserRegisterRequestDto;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -22,12 +25,14 @@ public class UserServiceImpl implements UserService {
      private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     private final JwtService jwtService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
         this.jwtService = jwtService;
     }
 
@@ -89,5 +94,16 @@ public class UserServiceImpl implements UserService {
                 user.getCreated_at(),
                 token
         );
+    }
+
+    @Override
+    public List<AuthResponseDto> getAllAccounts() {
+       List<Users> users= userRepository.findAll();
+       List<AuthResponseDto>authResponseDtos = new java.util.ArrayList<>(List.of());
+        for(Users users1 : users)
+        {
+            authResponseDtos.add(userMapper.userToDto(users1));
+        }
+        return authResponseDtos;
     }
 }
