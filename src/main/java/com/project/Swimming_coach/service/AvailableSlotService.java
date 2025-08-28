@@ -1,8 +1,8 @@
 package com.project.Swimming_coach.service;
 
 import com.project.Swimming_coach.model.entity.AvailableSlot;
-import  com.project.Swimming_coach.dto.AvailableSlotDTO;
-import com.project.Swimming_coach.dto.SlotRequestDTO;
+import  com.project.Swimming_coach.model.dto.*;
+
 
 import java.util.List;
 import java.util.Optional;

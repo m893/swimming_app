@@ -1,7 +1,9 @@
 package com.project.Swimming_coach.controller;
 
+import com.project.Swimming_coach.model.dto.LocationDto;
 import com.project.Swimming_coach.model.entity.Locations;
 import com.project.Swimming_coach.service.LocationSerivce;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +21,12 @@ public class LocationController {
         this.locationSerivce = locationSerivce;
     }
     @PostMapping
-    public ResponseEntity<Locations> addLocation(@RequestBody Locations locations)
+    public ResponseEntity<LocationDto> addLocation( @Valid  @RequestBody LocationDto locations)
     {
         return ResponseEntity.ok(locationSerivce.addNewLocation(locations));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Locations> editLocation(@PathVariable Integer id ,@RequestBody Locations locations)
+    public ResponseEntity<LocationDto> editLocation(@PathVariable Integer id ,@Valid @RequestBody LocationDto locations)
     {
         return ResponseEntity.ok(locationSerivce.updateLocation(id,locations));
     }
@@ -35,14 +37,16 @@ public class LocationController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Locations> getLocation(@PathVariable Integer id)
+    public ResponseEntity<LocationDto> getLocation(@PathVariable Integer id)
     {
-        return locationSerivce.getLocation(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        LocationDto dto = locationSerivce.getLocation(id);
+        if (dto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(dto);
     }
     @GetMapping
-    public ResponseEntity<List<Locations>> getAllLocations()
+    public ResponseEntity<List<LocationDto>> getAllLocations()
     {
         return ResponseEntity.ok(locationSerivce.getAllLocations());
     }

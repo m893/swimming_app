@@ -5,8 +5,7 @@ import com.project.Swimming_coach.service.AvailableSlotService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import com.project.Swimming_coach.dto.AvailableSlotDTO;
-import com.project.Swimming_coach.dto.SlotRequestDTO;
+import com.project.Swimming_coach.model.dto.*;
 
 import java.util.List;
 

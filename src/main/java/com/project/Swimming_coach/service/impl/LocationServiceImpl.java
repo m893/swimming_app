@@ -1,59 +1,92 @@
 package com.project.Swimming_coach.service.impl;
 
+import com.project.Swimming_coach.exception.ResourceNotFoundException;
+import com.project.Swimming_coach.mapper.LocationMapper;
+import com.project.Swimming_coach.model.dto.LocationDto;
+import com.project.Swimming_coach.model.entity.Level;
 import com.project.Swimming_coach.model.entity.Locations;
+import com.project.Swimming_coach.repository.LevelRepository;
 import com.project.Swimming_coach.repository.LocationRepository;
 import com.project.Swimming_coach.service.LocationSerivce;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationServiceImpl implements LocationSerivce {
     private final LocationRepository locationRepository;
+    private final LevelRepository levelRepository;
 
-    public LocationServiceImpl(LocationRepository locationRepository) {
+    public LocationServiceImpl(LocationRepository locationRepository, LevelRepository levelRepository) {
         this.locationRepository = locationRepository;
+        this.levelRepository = levelRepository;
     }
 
     @Override
-    public Locations addNewLocation(Locations location) {
-       return  locationRepository.save(location);
+    public LocationDto addNewLocation(LocationDto dto ) {
+        Level level = null ;
+        if(dto.getLevelId() != null)
+        {
+            level = levelRepository.findById(dto.getLevelId()).orElseThrow(()-> new ResourceNotFoundException("Level Not Found"));
+        }
+       Locations locations = LocationMapper.toEntity(dto,level);
+       Locations locations1 = locationRepository.save(locations);
+       return LocationMapper.toDto(locations1);
     }
 
     @Override
-    public Locations updateLocation(Integer id, Locations updatedLocation) {
-        return  locationRepository.findById( id).map(existingLocation -> {
-            existingLocation.setLocationName(updatedLocation.getLocationName());
-            existingLocation.setAddress(updatedLocation.getAddress());
-            existingLocation.setCity(updatedLocation.getCity());
-            existingLocation.setLatitude(updatedLocation.getLatitude());
-            existingLocation.setLongitude(updatedLocation.getLongitude());
-            existingLocation.setCapacity(updatedLocation.getCapacity());
-            existingLocation.setDescription(updatedLocation.getDescription());
-            existingLocation.setLevel(updatedLocation.getLevel());
-            existingLocation.setImageUrl(updatedLocation.getImageUrl());
-            return locationRepository.save(existingLocation);
-        }).orElseThrow(() -> new RuntimeException("Location not found with id: " + id));
+    public LocationDto updateLocation(Integer id, LocationDto dto) {
+        Locations existing = locationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Location not found"));
 
+        // update fields
+        existing.setLocationName(dto.getName());
+        existing.setAddress(dto.getAddress());
+        existing.setCity(dto.getCity());
+        if (dto.getLatitude() != null) {
+            existing.setLatitude(java.math.BigDecimal.valueOf(dto.getLatitude().doubleValue()));
+        }
+        if (dto.getLongitude() != null) {
+            existing.setLongitude(java.math.BigDecimal.valueOf(dto.getLongitude().doubleValue()));
+        }
+        existing.setCapacity(dto.getCapacity());
+        existing.setDescription(dto.getDescription());
+
+        if (dto.getLevelId() != null) {
+            Level level = levelRepository.findById(dto.getLevelId())
+                    .orElseThrow(() -> new RuntimeException("Level not found"));
+            existing.setLevel(level);
+        } else {
+            existing.setLevel(null);
+        }
+
+        Locations updated = locationRepository.save(existing);
+        return LocationMapper.toDto(updated);
     }
 
     @Override
     public void deleteLocation(Integer id) {
         if(!locationRepository.existsById(id))
         {
-            throw new RuntimeException("Location not found with id: " + id);
+            throw new ResourceNotFoundException("Location not found with id: " + id);
         }
         locationRepository.deleteById(id);
     }
 
     @Override
-    public Optional<Locations> getLocation(Integer id) {
-        return locationRepository.findById(id);
+    public LocationDto getLocation(Integer id) {
+        Locations location = locationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Location not found with id: " + id));
+        return LocationMapper.toDto(location);
     }
 
     @Override
-    public List<Locations> getAllLocations() {
-        return locationRepository.findAll();
+    public List<LocationDto> getAllLocations() {
+        return locationRepository.findAll()
+                .stream()
+                .map(LocationMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

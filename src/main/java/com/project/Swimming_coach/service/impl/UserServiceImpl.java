@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userRequestDto.getUsername());
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        user.setRole(Role.COACH); // default
+        user.setRole(Role.ADMIN); // default
         user.setStatus(Status.ACTIVE);
         user.setCreated_at(LocalDate.now());
         user.setFull_name(userRequestDto.getFullName());

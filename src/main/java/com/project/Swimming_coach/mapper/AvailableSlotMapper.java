@@ -1,8 +1,8 @@
 package com.project.Swimming_coach.mapper;
 
-import com.project.Swimming_coach.dto.AvailableSlotDTO;
+import com.project.Swimming_coach.model.dto.*;
 import com.project.Swimming_coach.model.entity.AvailableSlot;
-import com.project.Swimming_coach.dto.AvailableSlotDTO;
+
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class AvailableSlotMapper {
-    public AvailableSlotDTO mapSlotToDTO(AvailableSlot slot)
+    public static AvailableSlotDTO mapSlotToDTO(AvailableSlot slot)
     {
         return new AvailableSlotDTO(
                 slot.getSlotId(),

@@ -1,6 +1,7 @@
 package com.project.Swimming_coach.service.impl;
 
 import com.project.Swimming_coach.mapper.AvailableSlotMapper;
+import com.project.Swimming_coach.model.dto.SlotRequestDTO;
 import com.project.Swimming_coach.model.entity.AvailableSlot;
 import com.project.Swimming_coach.model.entity.Coach;
 import com.project.Swimming_coach.model.entity.Level;
@@ -11,8 +12,8 @@ import com.project.Swimming_coach.repository.LevelRepository;
 import com.project.Swimming_coach.repository.LocationRepository;
 import com.project.Swimming_coach.service.AvailableSlotService;
 import org.springframework.stereotype.Service;
-import  com.project.Swimming_coach.dto.AvailableSlotDTO;
-import com.project.Swimming_coach.dto.SlotRequestDTO;
+import  com.project.Swimming_coach.model.dto.*;
+
 
 import java.time.DayOfWeek;
 import java.util.List;

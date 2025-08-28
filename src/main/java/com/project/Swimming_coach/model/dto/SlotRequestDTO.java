@@ -1,4 +1,4 @@
-package com.project.Swimming_coach.dto;
+package com.project.Swimming_coach.model.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

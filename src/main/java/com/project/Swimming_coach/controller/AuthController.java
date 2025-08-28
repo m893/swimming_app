@@ -39,5 +39,16 @@ public class AuthController {
         AuthResponseDto authResponseDto = userService.login(userLoginRequestDto);
         return ResponseEntity.ok(authResponseDto);
     }
-
+    @PostMapping(value = "/registerCoach", produces = "application/json")
+    public ResponseEntity<AuthResponseDto> coachRegister(@Valid @RequestBody UserRegisterRequestDto userRegisterRequestDto)
+    {
+        AuthResponseDto authResponseDto= userService.coachRegister(userRegisterRequestDto);
+        return ResponseEntity.ok(authResponseDto);
+    }
+    @PostMapping(value = "/registerAdmin", produces = "application/json")
+    public ResponseEntity<AuthResponseDto> adminRegister(@Valid @RequestBody UserRegisterRequestDto userRegisterRequestDto)
+    {
+        AuthResponseDto authResponseDto= userService.adminRegister(userRegisterRequestDto);
+        return ResponseEntity.ok(authResponseDto);
+    }
 }

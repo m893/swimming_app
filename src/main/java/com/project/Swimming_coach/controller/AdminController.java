@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api/v1/admin")
-@PreAuthorize("hasRole('ADMIN')")
+@RequestMapping("/api/v1/")
 public class AdminController {
     private final UserService userService ;
     private final LocationSerivce locationSerivce;
@@ -31,22 +30,7 @@ public class AdminController {
         List<AuthResponseDto> list = userService.getAllAccounts();
         return ResponseEntity.ok(list);
     }
-    @PostMapping("/location")
-    public ResponseEntity<Locations> addNewLocations(@RequestBody Locations locations)
-    {
-        return ResponseEntity.ok(locationSerivce.addNewLocation(locations));
-    }
-    @PostMapping(value = "/registerCoach", produces = "application/json")
-    public ResponseEntity<AuthResponseDto> coachRegister(@Valid @RequestBody UserRegisterRequestDto userRegisterRequestDto)
-    {
-        AuthResponseDto authResponseDto= userService.coachRegister(userRegisterRequestDto);
-        return ResponseEntity.ok(authResponseDto);
-    }
-    @PostMapping(value = "/registerAdmin", produces = "application/json")
-    public ResponseEntity<AuthResponseDto> adminRegister(@Valid @RequestBody UserRegisterRequestDto userRegisterRequestDto)
-    {
-        AuthResponseDto authResponseDto= userService.coachRegister(userRegisterRequestDto);
-        return ResponseEntity.ok(authResponseDto);
-    }
+
+
 
 }

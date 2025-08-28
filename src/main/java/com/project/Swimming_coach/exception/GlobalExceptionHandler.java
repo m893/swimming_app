@@ -55,6 +55,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(response);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ValidationErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
+        ValidationErrorResponse response = new ValidationErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                List.of(ex.getMessage()), // reuse as error list
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
     // You can handle other exceptions like custom AppException, etc. here too
 }
 
