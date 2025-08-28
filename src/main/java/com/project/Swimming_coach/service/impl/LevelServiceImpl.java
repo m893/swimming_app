@@ -35,8 +35,6 @@ public class LevelServiceImpl implements LevelService {
             current.setName(level.getName());
             current.setDescription(level.getDescription());
 
-            // we usually don’t update relationships directly from here
-            // but if needed, you can allow:
             if (level.getLocations() != null) {
                 current.setLocations(level.getLocations());
             }

@@ -1,5 +1,8 @@
 package com.project.Swimming_coach.service.impl;
 
+import com.project.Swimming_coach.mapper.CoachMapper;
+import com.project.Swimming_coach.model.dto.CoachDTO;
+import com.project.Swimming_coach.model.dto.CoachRequestDTO;
 import com.project.Swimming_coach.model.entity.Coach;
 import com.project.Swimming_coach.repository.CoachRepository;
 import com.project.Swimming_coach.service.CoachService;
@@ -7,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class CoachServiceImpl implements CoachService {
     private final CoachRepository coachRepository;
@@ -16,21 +21,20 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public Coach addNewCoach(Coach coach) {
-        return coachRepository.save(coach);
+    public CoachDTO addNewCoach(CoachRequestDTO coach) {
+        Coach coach1 = CoachMapper.toEntity(coach);
+        Coach coach2 = coachRepository.save(coach1);
+        return CoachMapper.toDTO(coach2);
     }
 
     @Override
-    public Coach editCoachInfo(Long id, Coach coach) {
+    public CoachDTO editCoachInfo(Long id, CoachRequestDTO coach) {
         return coachRepository.findById(id).map(current ->{current.setName(coach.getName());
             current.setSpecialization(coach.getSpecialization());
 
 
-            if (coach.getAvailableSlots() != null) {
-                current.setAvailableSlots(coach.getAvailableSlots());
-            }
 
-            return coachRepository.save(current);
+            return CoachMapper.toDTO(coachRepository.save(current)) ;
         }).orElseThrow(() -> new RuntimeException("Coach with id " + id + " not found"));
 
     }
@@ -45,17 +49,23 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public Optional<Coach> getCoachById(Long id) {
-        return coachRepository.findById(id);
+    public CoachDTO getCoachById(Long id) {
+        return coachRepository.findById(id).map(CoachMapper::toDTO).orElseThrow(()->new RuntimeException("Coach with id " + id + " not found"));
     }
 
     @Override
-    public List<Coach> getAllCoach() {
-        return coachRepository.findAll();
+    public List<CoachDTO> getAllCoach() {
+        return coachRepository.findAll()
+                .stream()
+                .map(CoachMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Coach> getCoachByName(String name) {
-        return coachRepository.findByNameContainingIgnoreCase(name);
+    public List<CoachDTO> getCoachByName(String name) {
+        return coachRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(CoachMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

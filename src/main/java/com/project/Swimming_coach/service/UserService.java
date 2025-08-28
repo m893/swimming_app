@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface UserService {
     AuthResponseDto register(UserRegisterRequestDto uSerRequestDto);
+    AuthResponseDto coachRegister(UserRegisterRequestDto uSerRequestDto);
+    AuthResponseDto adminRegister(UserRegisterRequestDto uSerRequestDto);
     AuthResponseDto login(UserLoginRequestDto userLoginRequestDto);
     List<AuthResponseDto>getAllAccounts();
 }

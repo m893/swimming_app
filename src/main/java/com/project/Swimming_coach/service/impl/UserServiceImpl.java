@@ -75,6 +75,80 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public AuthResponseDto coachRegister(UserRegisterRequestDto userRequestDto) {
+        if(userRepository.existsByEmail(userRequestDto.getEmail()))
+        {
+            System.out.println("exit");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
+        }
+        if(userRepository.existsByUsername(userRequestDto.getUsername()))
+        {
+            System.out.println("user exist");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
+        }
+        Users user = new Users();
+        user.setUsername(userRequestDto.getUsername());
+        user.setEmail(userRequestDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        user.setRole(Role.COACH); // default
+        user.setStatus(Status.ACTIVE);
+        user.setCreated_at(LocalDate.now());
+        user.setFull_name(userRequestDto.getFullName());
+        user.setPhone_number(userRequestDto.getPhoneNumber());
+
+        userRepository.save(user);
+        String token = jwtService.generateToken(user.getUsername(), user.getRole().name(),user.getStatus().name());
+        return new AuthResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getFull_name(),
+                user.getPhone_number(),
+                user.getRole().name(),
+                user.getStatus().name(),
+                user.getCreated_at(),
+                token
+        );
+    }
+
+    @Override
+    public AuthResponseDto adminRegister(UserRegisterRequestDto userRequestDto) {
+        if(userRepository.existsByEmail(userRequestDto.getEmail()))
+        {
+            System.out.println("exit");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
+        }
+        if(userRepository.existsByUsername(userRequestDto.getUsername()))
+        {
+            System.out.println("user exist");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
+        }
+        Users user = new Users();
+        user.setUsername(userRequestDto.getUsername());
+        user.setEmail(userRequestDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        user.setRole(Role.COACH); // default
+        user.setStatus(Status.ACTIVE);
+        user.setCreated_at(LocalDate.now());
+        user.setFull_name(userRequestDto.getFullName());
+        user.setPhone_number(userRequestDto.getPhoneNumber());
+
+        userRepository.save(user);
+        String token = jwtService.generateToken(user.getUsername(), user.getRole().name(),user.getStatus().name());
+        return new AuthResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getFull_name(),
+                user.getPhone_number(),
+                user.getRole().name(),
+                user.getStatus().name(),
+                user.getCreated_at(),
+                token
+        );
+    }
+
+    @Override
     public AuthResponseDto login(UserLoginRequestDto userLoginRequestDto) {
         Users user = userRepository.findByUsername(userLoginRequestDto.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username"));

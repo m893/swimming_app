@@ -16,8 +16,6 @@ public class SlotRequestDTO {
     private Integer locationId;
     private Long levelId;
 
-    // Getters & Setters
-
 
     public Set<String> getDayOfWeek() {
         return dayOfWeek;
