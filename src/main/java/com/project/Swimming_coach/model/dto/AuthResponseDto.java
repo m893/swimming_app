@@ -8,7 +8,21 @@ public class AuthResponseDto {
 
     public AuthResponseDto(Integer id, String username, String email, String fullName,
                            String phoneNumber, String role, String status,
-                           LocalDate createdAt, String token) {
+                           LocalDate createdAt, String token , String refreshToken) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.token = token;
+        this.refreshToken=refreshToken;
+    }
+    public AuthResponseDto(Integer id, String username, String email, String fullName,
+                           String phoneNumber, String role, String status,
+                           LocalDate createdAt, String token ) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -29,6 +43,7 @@ public class AuthResponseDto {
     private String status;  // Enum as String
     private LocalDate createdAt;
     private String token;
+    private String refreshToken ;
 
     public Integer getId() {
         return id;
@@ -100,6 +115,14 @@ public class AuthResponseDto {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     @Override

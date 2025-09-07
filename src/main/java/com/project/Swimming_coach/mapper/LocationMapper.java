@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class LocationMapper {
 
-    // Entity → DTO
+
     public static LocationDto toDto(Locations location) {
         if (location == null) {
             return null;

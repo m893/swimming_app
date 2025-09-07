@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Table(name = "trainees")
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 @ToString
 public class Trainees {
     @Id

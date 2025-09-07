@@ -22,6 +22,14 @@ public class JwtService {
                 .signWith(secretKey,SignatureAlgorithm.HS256)
                 .compact();
     }
+    public String generateRefreshToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 7)) // 7 days
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+    }
     public boolean isTokenValid(String token , String username)
     {
         return username.equals(extractUsername(token))&& !isTokenExpired(token);

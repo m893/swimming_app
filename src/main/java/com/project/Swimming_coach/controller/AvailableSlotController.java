@@ -38,10 +38,9 @@ public class AvailableSlotController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AvailableSlot> getSlotById(@PathVariable Long id) {
-        return availableSlotService.getSlotById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<AvailableSlotDTO> getSlotById(@PathVariable Long id) {
+        return ResponseEntity.ok(availableSlotService.getSlotById(id));
+
     }
 
     @GetMapping

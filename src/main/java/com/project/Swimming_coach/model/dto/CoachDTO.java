@@ -5,6 +5,8 @@ import java.util.List;
 public class CoachDTO {
     private Long id ;
     private String name ;
+    private String specialization;
+    private List<AvailableSlotDTO> availableSlots ;
 
     public String getName() {
         return name;
@@ -13,10 +15,6 @@ public class CoachDTO {
     public void setName(String name) {
         this.name = name;
     }
-
-    private String specialization;
-    private List<Long> availableSlots ;
-
     public Long getId() {
         return id;
     }
@@ -33,11 +31,11 @@ public class CoachDTO {
         this.specialization = specialization;
     }
 
-    public List<Long> getAvailableSlots() {
+    public List<AvailableSlotDTO> getAvailableSlots() {
         return availableSlots;
     }
 
-    public void setAvailableSlots(List<Long> availableSlots) {
+    public void setAvailableSlots(List<AvailableSlotDTO> availableSlots) {
         this.availableSlots = availableSlots;
     }
 }

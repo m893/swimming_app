@@ -1,5 +1,6 @@
 package com.project.Swimming_coach.service.impl;
 
+import com.project.Swimming_coach.exception.ResourceNotFoundException;
 import com.project.Swimming_coach.mapper.AvailableSlotMapper;
 import com.project.Swimming_coach.model.dto.SlotRequestDTO;
 import com.project.Swimming_coach.model.entity.AvailableSlot;
@@ -101,8 +102,10 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
     }
 
     @Override
-    public Optional<AvailableSlot> getSlotById(Long slotId) {
-        return availableSlotRepository.findById(slotId);
+    public AvailableSlotDTO getSlotById(Long slotId) {
+       AvailableSlot availableSlot = availableSlotRepository.findById(slotId).
+               orElseThrow(()-> new ResourceNotFoundException("NO Slot Available wit id:"+slotId));
+       return AvailableSlotMapper.mapSlotToDTO(availableSlot);
     }
 
     @Override

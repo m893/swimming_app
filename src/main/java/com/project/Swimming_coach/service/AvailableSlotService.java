@@ -11,7 +11,7 @@ public interface AvailableSlotService {
      AvailableSlotDTO addNewSlot (SlotRequestDTO availableSlot);
     AvailableSlot updateSlot(Long slotId , AvailableSlot availableSlot);
     void deleteSlot(Long slotId);
-    Optional<AvailableSlot> getSlotById(Long slotId);
+    AvailableSlotDTO getSlotById(Long slotId);
     List<AvailableSlot> getAllSlots();
     List<AvailableSlot> getSlotsByLocation(Long locationId);
 

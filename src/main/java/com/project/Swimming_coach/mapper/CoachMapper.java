@@ -1,10 +1,13 @@
 // CoachMapper.java
 package com.project.Swimming_coach.mapper;
 
+import com.project.Swimming_coach.model.dto.AvailableSlotDTO;
 import com.project.Swimming_coach.model.dto.CoachDTO;
 import com.project.Swimming_coach.model.dto.CoachRequestDTO;
+import com.project.Swimming_coach.model.entity.AvailableSlot;
 import com.project.Swimming_coach.model.entity.Coach;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -18,12 +21,11 @@ public class CoachMapper {
         dto.setId(coach.getCoachId());
         dto.setName(coach.getName());
         dto.setSpecialization(coach.getSpecialization());
-
         if (coach.getAvailableSlots() != null) {
             dto.setAvailableSlots(
-                    coach.getAvailableSlots().stream()
-                            .map(slot -> slot.getSlotId()) // or map to AvailableSlotDTO
-                            .collect(Collectors.toList()).reversed()
+                    coach.getAvailableSlots().stream().
+                            map(slot -> AvailableSlotMapper.mapSlotToDTO(slot)).
+                            toList()
             );
         }
 

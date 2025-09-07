@@ -9,6 +9,7 @@ import com.project.Swimming_coach.model.enums.Role;
 import com.project.Swimming_coach.model.enums.Status;
 import com.project.Swimming_coach.repository.UserRepository;
 import com.project.Swimming_coach.security.JwtService;
+import com.project.Swimming_coach.service.RefreshTokenService;
 import com.project.Swimming_coach.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,12 +29,14 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final JwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper, JwtService jwtService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper, JwtService jwtService, RefreshTokenService refreshTokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
         this.jwtService = jwtService;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @Override
@@ -157,6 +160,11 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
             String token = jwtService.generateToken(user.getUsername(), user.getRole().name(),user.getStatus().name());
+            String refreshToken = jwtService.generateRefreshToken(user.getUsername());
+            refreshTokenService.createRefreshToken(user.getUsername(),refreshToken);
+
+
+
         return new AuthResponseDto(
                 user.getId(),
                 user.getUsername(),
@@ -166,7 +174,8 @@ public class UserServiceImpl implements UserService {
                 user.getRole().name(),
                 user.getStatus().name(),
                 user.getCreated_at(),
-                token
+                token,
+                refreshToken
         );
     }
 
