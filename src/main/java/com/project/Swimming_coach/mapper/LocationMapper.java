@@ -1,8 +1,8 @@
 package com.project.Swimming_coach.mapper;
 
-import com.project.Swimming_coach.model.dto.AvailableSlotDTO;
+import com.project.Swimming_coach.model.dto.AvailableSlotDto;
 import com.project.Swimming_coach.model.dto.LocationDto;
-import com.project.Swimming_coach.model.entity.Locations;
+import com.project.Swimming_coach.model.entity.Location;
 import com.project.Swimming_coach.model.entity.Level;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class LocationMapper {
 
 
-    public static LocationDto toDto(Locations location) {
+    public static LocationDto toDto(Location location) {
         if (location == null) {
             return null;
         }
@@ -29,7 +29,7 @@ public class LocationMapper {
         dto.setImageUrl(location.getImageUrl());
 
         if (location.getAvailableSlots() != null) {
-            List<AvailableSlotDTO> slotDTOs = location.getAvailableSlots()
+            List<AvailableSlotDto> slotDTOs = location.getAvailableSlots()
                     .stream()
                     .map(AvailableSlotMapper::mapSlotToDTO)
                     .collect(Collectors.toList());
@@ -40,10 +40,10 @@ public class LocationMapper {
     }
 
     // DTO → Entity
-    public static Locations toEntity(LocationDto dto, Level level) {
+    public static Location toEntity(LocationDto dto, Level level) {
         if (dto == null) return null;
 
-        Locations entity = new Locations();
+        Location entity = new Location();
         entity.setLocationId(dto.getId());
         entity.setLocationName(dto.getName());
         entity.setAddress(dto.getAddress());

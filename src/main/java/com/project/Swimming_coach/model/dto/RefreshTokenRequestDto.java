@@ -1,9 +1,9 @@
 package com.project.Swimming_coach.model.dto;
 
-public class RefreshTokenRequestDTO {
+public class RefreshTokenRequestDto {
      private String refreshToken;
 
-    public RefreshTokenRequestDTO(String refreshToken) {
+    public RefreshTokenRequestDto(String refreshToken) {
         this.refreshToken = refreshToken;
     }
 

@@ -1,38 +1,38 @@
 package com.project.Swimming_coach.mapper;
 
 import com.project.Swimming_coach.model.dto.AuthResponseDto;
-import com.project.Swimming_coach.model.entity.Users;
+import com.project.Swimming_coach.model.entity.User;
 import com.project.Swimming_coach.model.enums.Role;
 import com.project.Swimming_coach.model.enums.Status;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public AuthResponseDto userToDto(Users users)
+    public AuthResponseDto userToDto(User user)
     {
         AuthResponseDto dto = new AuthResponseDto();
 
-        dto.setId(users.getId());
-        dto.setUsername(users.getUsername());
-        dto.setEmail(users.getEmail());
-        dto.setFullName(users.getFull_name());
-        dto.setPhoneNumber(users.getPhone_number());
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setFullName(user.getFull_name());
+        dto.setPhoneNumber(user.getPhone_number());
 
-        if (users.getRole() != null) {
-            dto.setRole(users.getRole().name()); // Convert Enum to String
+        if (user.getRole() != null) {
+            dto.setRole(user.getRole().name()); // Convert Enum to String
         }
 
-        if (users.getStatus() != null) {
-            dto.setStatus(users.getStatus().name()); // Convert Enum to String
+        if (user.getStatus() != null) {
+            dto.setStatus(user.getStatus().name()); // Convert Enum to String
         }
 
-        dto.setCreatedAt(users.getCreated_at());
+        dto.setCreatedAt(user.getCreated_at());
 
         return dto;
     }
-    public Users usersToEntity(AuthResponseDto dto)
+    public User usersToEntity(AuthResponseDto dto)
     {
-        Users user = new Users();
+        User user = new User();
 
         user.setId(dto.getId());
         user.setUsername(dto.getUsername());

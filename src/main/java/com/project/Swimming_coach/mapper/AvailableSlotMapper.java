@@ -6,14 +6,13 @@ import com.project.Swimming_coach.model.entity.AvailableSlot;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Component
 public class AvailableSlotMapper {
-    public static AvailableSlotDTO mapSlotToDTO(AvailableSlot slot)
+    public static AvailableSlotDto mapSlotToDTO(AvailableSlot slot)
     {
-        return new AvailableSlotDTO(
+        return new AvailableSlotDto(
                 slot.getSlotId(),
                 slot.getDaysOfWeek().stream()
                         .map(DayOfWeek::name) // convert enum -> String

@@ -1,11 +1,11 @@
 package com.project.Swimming_coach.model.dto;
 
-public class RefreshTokeDTO {
+public class RefreshTokenDto {
     private String accessToken;
     private String refreshToken;
     private String tokenType = "Bearer";
 
-    public RefreshTokeDTO(String accessToken, String refreshToken) {
+    public RefreshTokenDto(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }

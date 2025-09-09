@@ -4,18 +4,17 @@ import com.project.Swimming_coach.exception.ResourceNotFoundException;
 import com.project.Swimming_coach.mapper.LocationMapper;
 import com.project.Swimming_coach.model.dto.LocationDto;
 import com.project.Swimming_coach.model.entity.Level;
-import com.project.Swimming_coach.model.entity.Locations;
+import com.project.Swimming_coach.model.entity.Location;
 import com.project.Swimming_coach.repository.LevelRepository;
 import com.project.Swimming_coach.repository.LocationRepository;
-import com.project.Swimming_coach.service.LocationSerivce;
+import com.project.Swimming_coach.service.LocationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LocationServiceImpl implements LocationSerivce {
+public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
     private final LevelRepository levelRepository;
 
@@ -31,14 +30,14 @@ public class LocationServiceImpl implements LocationSerivce {
         {
             level = levelRepository.findById(dto.getLevelId()).orElseThrow(()-> new ResourceNotFoundException("Level Not Found"));
         }
-       Locations locations = LocationMapper.toEntity(dto,level);
-       Locations locations1 = locationRepository.save(locations);
-       return LocationMapper.toDto(locations1);
+       Location location = LocationMapper.toEntity(dto,level);
+       Location location1 = locationRepository.save(location);
+       return LocationMapper.toDto(location1);
     }
 
     @Override
     public LocationDto updateLocation(Integer id, LocationDto dto) {
-        Locations existing = locationRepository.findById(id)
+        Location existing = locationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Location not found"));
 
         // update fields
@@ -62,7 +61,7 @@ public class LocationServiceImpl implements LocationSerivce {
             existing.setLevel(null);
         }
 
-        Locations updated = locationRepository.save(existing);
+        Location updated = locationRepository.save(existing);
         return LocationMapper.toDto(updated);
     }
 
@@ -77,7 +76,7 @@ public class LocationServiceImpl implements LocationSerivce {
 
     @Override
     public LocationDto getLocation(Integer id) {
-        Locations location = locationRepository.findById(id)
+        Location location = locationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Location not found with id: " + id));
         return LocationMapper.toDto(location);
     }

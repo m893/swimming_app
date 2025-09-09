@@ -2,11 +2,11 @@ package com.project.Swimming_coach.service.impl;
 
 import com.project.Swimming_coach.exception.ResourceNotFoundException;
 import com.project.Swimming_coach.mapper.AvailableSlotMapper;
-import com.project.Swimming_coach.model.dto.SlotRequestDTO;
+import com.project.Swimming_coach.model.dto.SlotRequestDto;
 import com.project.Swimming_coach.model.entity.AvailableSlot;
 import com.project.Swimming_coach.model.entity.Coach;
 import com.project.Swimming_coach.model.entity.Level;
-import com.project.Swimming_coach.model.entity.Locations;
+import com.project.Swimming_coach.model.entity.Location;
 import com.project.Swimming_coach.repository.AvailableSlotRepository;
 import com.project.Swimming_coach.repository.CoachRepository;
 import com.project.Swimming_coach.repository.LevelRepository;
@@ -18,7 +18,6 @@ import  com.project.Swimming_coach.model.dto.*;
 
 import java.time.DayOfWeek;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +38,7 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
     }
 
     @Override
-    public AvailableSlotDTO addNewSlot(SlotRequestDTO request) {
+    public AvailableSlotDto addNewSlot(SlotRequestDto request) {
         AvailableSlot slot = new AvailableSlot();
 
         slot.setDaysOfWeek(
@@ -60,7 +59,7 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
         }
 
         if (request.getLocationId() != null) {
-            Locations location = locationRepository.findById(request.getLocationId())
+            Location location = locationRepository.findById(request.getLocationId())
                     .orElseThrow(() -> new RuntimeException("Location not found"));
             slot.setLocation(location);
         }
@@ -102,7 +101,7 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
     }
 
     @Override
-    public AvailableSlotDTO getSlotById(Long slotId) {
+    public AvailableSlotDto getSlotById(Long slotId) {
        AvailableSlot availableSlot = availableSlotRepository.findById(slotId).
                orElseThrow(()-> new ResourceNotFoundException("NO Slot Available wit id:"+slotId));
        return AvailableSlotMapper.mapSlotToDTO(availableSlot);

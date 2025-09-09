@@ -3,7 +3,7 @@ package com.project.Swimming_coach.model.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class CoachRequestDTO {
+public class CoachRequestDto {
 
     @NotBlank(message = "Name is mandatory")
     @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")

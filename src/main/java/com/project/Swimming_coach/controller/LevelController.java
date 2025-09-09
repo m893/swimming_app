@@ -2,7 +2,6 @@ package com.project.Swimming_coach.controller;
 
 import com.project.Swimming_coach.model.entity.Level;
 import com.project.Swimming_coach.service.LevelService;
-import org.springframework.cloud.client.loadbalancer.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

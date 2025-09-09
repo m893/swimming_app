@@ -38,18 +38,18 @@ public class LocationDto {
     )
     private String imageUrl;
 
-    public List<AvailableSlotDTO> getAvailableSlots() {
+    public List<AvailableSlotDto> getAvailableSlots() {
         return availableSlots;
     }
 
-    public void setAvailableSlots(List<AvailableSlotDTO> availableSlots) {
+    public void setAvailableSlots(List<AvailableSlotDto> availableSlots) {
         this.availableSlots = availableSlots;
     }
 
-    private List<AvailableSlotDTO> availableSlots;
+    private List<AvailableSlotDto> availableSlots;
 
 
-    public LocationDto(Integer id, String name, String address, String city, Double latitude, Double longitude, Integer capacity, String description, Long levelId, String imageUrl, List<AvailableSlotDTO> availableSlots) {
+    public LocationDto(Integer id, String name, String address, String city, Double latitude, Double longitude, Integer capacity, String description, Long levelId, String imageUrl, List<AvailableSlotDto> availableSlots) {
         this.id = id;
         this.name = name;
         this.address = address;

@@ -5,13 +5,12 @@ import  com.project.Swimming_coach.model.dto.*;
 
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AvailableSlotService {
-     AvailableSlotDTO addNewSlot (SlotRequestDTO availableSlot);
+     AvailableSlotDto addNewSlot (SlotRequestDto availableSlot);
     AvailableSlot updateSlot(Long slotId , AvailableSlot availableSlot);
     void deleteSlot(Long slotId);
-    AvailableSlotDTO getSlotById(Long slotId);
+    AvailableSlotDto getSlotById(Long slotId);
     List<AvailableSlot> getAllSlots();
     List<AvailableSlot> getSlotsByLocation(Long locationId);
 

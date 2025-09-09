@@ -1,15 +1,14 @@
 package com.project.Swimming_coach.service.impl;
 
 import com.project.Swimming_coach.mapper.CoachMapper;
-import com.project.Swimming_coach.model.dto.CoachDTO;
-import com.project.Swimming_coach.model.dto.CoachRequestDTO;
+import com.project.Swimming_coach.model.dto.CoachDto;
+import com.project.Swimming_coach.model.dto.CoachRequestDto;
 import com.project.Swimming_coach.model.entity.Coach;
 import com.project.Swimming_coach.repository.CoachRepository;
 import com.project.Swimming_coach.service.CoachService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,14 +20,14 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public CoachDTO addNewCoach(CoachRequestDTO coach) {
+    public CoachDto addNewCoach(CoachRequestDto coach) {
         Coach coach1 = CoachMapper.toEntity(coach);
         Coach coach2 = coachRepository.save(coach1);
         return CoachMapper.toDTO(coach2);
     }
 
     @Override
-    public CoachDTO editCoachInfo(Long id, CoachRequestDTO coach) {
+    public CoachDto editCoachInfo(Long id, CoachRequestDto coach) {
         return coachRepository.findById(id).map(current ->{current.setName(coach.getName());
             current.setSpecialization(coach.getSpecialization());
 
@@ -49,12 +48,12 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public CoachDTO getCoachById(Long id) {
+    public CoachDto getCoachById(Long id) {
         return coachRepository.findById(id).map(CoachMapper::toDTO).orElseThrow(()->new RuntimeException("Coach with id " + id + " not found"));
     }
 
     @Override
-    public List<CoachDTO> getAllCoach() {
+    public List<CoachDto> getAllCoach() {
         return coachRepository.findAll()
                 .stream()
                 .map(CoachMapper::toDTO)
@@ -62,7 +61,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<CoachDTO> getCoachByName(String name) {
+    public List<CoachDto> getCoachByName(String name) {
         return coachRepository.findByNameContainingIgnoreCase(name)
                 .stream()
                 .map(CoachMapper::toDTO)

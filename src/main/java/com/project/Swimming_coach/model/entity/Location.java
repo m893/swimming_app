@@ -7,11 +7,11 @@ import java.util.List;
 
 @Entity
 @Table(name="locations")
-public class Locations {
-    public Locations() {
+public class Location {
+    public Location() {
     }
 
-    public Locations(String locationName, Integer locationId, String address, String city, BigDecimal  latitude, BigDecimal  longitude, Integer capacity, String description, Level level, List<AvailableSlot> availableSlots) {
+    public Location(String locationName, Integer locationId, String address, String city, BigDecimal  latitude, BigDecimal  longitude, Integer capacity, String description, Level level, List<AvailableSlot> availableSlots) {
         this.locationName = locationName;
         this.locationId = locationId;
         this.address = address;

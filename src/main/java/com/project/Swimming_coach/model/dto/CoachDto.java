@@ -2,11 +2,11 @@ package com.project.Swimming_coach.model.dto;
 
 import java.util.List;
 
-public class CoachDTO {
+public class CoachDto {
     private Long id ;
     private String name ;
     private String specialization;
-    private List<AvailableSlotDTO> availableSlots ;
+    private List<AvailableSlotDto> availableSlots ;
 
     public String getName() {
         return name;
@@ -31,11 +31,11 @@ public class CoachDTO {
         this.specialization = specialization;
     }
 
-    public List<AvailableSlotDTO> getAvailableSlots() {
+    public List<AvailableSlotDto> getAvailableSlots() {
         return availableSlots;
     }
 
-    public void setAvailableSlots(List<AvailableSlotDTO> availableSlots) {
+    public void setAvailableSlots(List<AvailableSlotDto> availableSlots) {
         this.availableSlots = availableSlots;
     }
 }

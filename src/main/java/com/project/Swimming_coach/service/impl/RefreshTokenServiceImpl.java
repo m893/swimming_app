@@ -2,7 +2,7 @@ package com.project.Swimming_coach.service.impl;
 
 import com.project.Swimming_coach.exception.ResourceNotFoundException;
 import com.project.Swimming_coach.model.entity.RefreshToken;
-import com.project.Swimming_coach.model.entity.Users;
+import com.project.Swimming_coach.model.entity.User;
 import com.project.Swimming_coach.repository.RefreshTokenRepository;
 import com.project.Swimming_coach.repository.UserRepository;
 import com.project.Swimming_coach.service.RefreshTokenService;
@@ -23,7 +23,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public RefreshToken createRefreshToken(String userName, String token) {
-        Users user = userRepository.findByUsername(userName)
+        User user = userRepository.findByUsername(userName)
                 .orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
 
         // Check if this user already has a refresh token
@@ -50,7 +50,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public RefreshToken updateRefreshToken(String userName, String token) {
-        Users user = userRepository.findByUsername(userName).orElseThrow(()-> new ResourceNotFoundException("User Not Exist"));
+        User user = userRepository.findByUsername(userName).orElseThrow(()-> new ResourceNotFoundException("User Not Exist"));
         RefreshToken refreshToken = refreshTokenRepository.findByUser(user).orElseThrow(()-> new ResourceNotFoundException("Refresh Token Not Found For USer"));
 
         refreshToken.setToken(token);
@@ -69,8 +69,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public void deleteByUser(Users users) {
-        refreshTokenRepository.deleteByUser(users);
+    public void deleteByUser(User user) {
+        refreshTokenRepository.deleteByUser(user);
 
     }
 }

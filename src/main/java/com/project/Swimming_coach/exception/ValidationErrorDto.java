@@ -1,17 +1,15 @@
 package com.project.Swimming_coach.exception;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ValidationErrorResponse {
+public class ValidationErrorDto {
     private final int status;
     private final String message;
     private final List<String> errors;
     private final LocalDateTime timestamp;
 
-    public ValidationErrorResponse(int status, String message, List<String> errors, LocalDateTime timestamp) {
+    public ValidationErrorDto(int status, String message, List<String> errors, LocalDateTime timestamp) {
         this.status = status;
         this.message = message;
         this.errors = errors;

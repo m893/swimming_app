@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
-public class SlotRequestDTO {
+public class SlotRequestDto {
     private Set<String>  dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;

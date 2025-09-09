@@ -4,7 +4,7 @@ import com.project.Swimming_coach.mapper.UserMapper;
 import com.project.Swimming_coach.model.dto.AuthResponseDto;
 import com.project.Swimming_coach.model.dto.UserLoginRequestDto;
 import com.project.Swimming_coach.model.dto.UserRegisterRequestDto;
-import com.project.Swimming_coach.model.entity.Users;
+import com.project.Swimming_coach.model.entity.User;
 import com.project.Swimming_coach.model.enums.Role;
 import com.project.Swimming_coach.model.enums.Status;
 import com.project.Swimming_coach.repository.UserRepository;
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("user exist");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
-        Users user = new Users();
+        User user = new User();
         user.setUsername(userRequestDto.getUsername());
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("user exist");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
-        Users user = new Users();
+        User user = new User();
         user.setUsername(userRequestDto.getUsername());
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("user exist");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
-        Users user = new Users();
+        User user = new User();
         user.setUsername(userRequestDto.getUsername());
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthResponseDto login(UserLoginRequestDto userLoginRequestDto) {
-        Users user = userRepository.findByUsername(userLoginRequestDto.getUsername())
+        User user = userRepository.findByUsername(userLoginRequestDto.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username"));
 
         if (!passwordEncoder.matches(userLoginRequestDto.getPassword(), user.getPassword())) {
@@ -181,11 +181,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<AuthResponseDto> getAllAccounts() {
-       List<Users> users= userRepository.findAll();
+       List<User> users= userRepository.findAll();
        List<AuthResponseDto>authResponseDtos = new java.util.ArrayList<>(List.of());
-        for(Users users1 : users)
+        for(User user1 : users)
         {
-            authResponseDtos.add(userMapper.userToDto(users1));
+            authResponseDtos.add(userMapper.userToDto(user1));
         }
         return authResponseDtos;
     }

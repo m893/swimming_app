@@ -1,5 +1,6 @@
 package com.project.Swimming_coach.exception;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Hidden
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ValidationErrorDto> handleValidationException(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -26,7 +27,7 @@ public class GlobalExceptionHandler {
 
 
         String message = "Validation failed. Error count: " + errors.size();
-        ValidationErrorResponse response = new ValidationErrorResponse(
+        ValidationErrorDto response = new ValidationErrorDto(
                 HttpStatus.BAD_REQUEST.value(),
                 message,
                 errors,
@@ -38,14 +39,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ValidationErrorResponse> handleConstraintViolationException(ConstraintViolationException ex) {
+    public ResponseEntity<ValidationErrorDto> handleConstraintViolationException(ConstraintViolationException ex) {
         List<String> errors = ex.getConstraintViolations()
                 .stream()
                 .map(v -> v.getPropertyPath() + ": " + v.getMessage())
                 .collect(Collectors.toList());
 
         String message = "Validation failed. Error count: " + errors.size();
-        ValidationErrorResponse response = new ValidationErrorResponse(
+        ValidationErrorDto response = new ValidationErrorDto(
                 HttpStatus.BAD_REQUEST.value(),
                 message,
                 errors,
@@ -56,8 +57,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ValidationErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
-        ValidationErrorResponse response = new ValidationErrorResponse(
+    public ResponseEntity<ValidationErrorDto> handleResourceNotFound(ResourceNotFoundException ex) {
+        ValidationErrorDto response = new ValidationErrorDto(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
                 List.of(ex.getMessage()), // reuse as error list

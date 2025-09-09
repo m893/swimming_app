@@ -3,7 +3,6 @@ package com.project.Swimming_coach.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @ToString
-public class Trainees {
+public class Trainee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,5 +25,5 @@ public class Trainees {
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Trainees parent;
+    private Trainee parent;
 }

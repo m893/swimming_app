@@ -1,8 +1,7 @@
 package com.project.Swimming_coach.controller;
 
 import com.project.Swimming_coach.model.dto.LocationDto;
-import com.project.Swimming_coach.model.entity.Locations;
-import com.project.Swimming_coach.service.LocationSerivce;
+import com.project.Swimming_coach.service.LocationService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,32 +13,32 @@ import java.util.List;
 @RequestMapping("/api/v1/admin/locations")
 @PreAuthorize("hasRole('ADMIN')")
 public class LocationController {
-    private final LocationSerivce locationSerivce ;
+    private final LocationService locationService;
 
 
-    public LocationController(LocationSerivce locationSerivce) {
-        this.locationSerivce = locationSerivce;
+    public LocationController(LocationService locationService) {
+        this.locationService = locationService;
     }
     @PostMapping
     public ResponseEntity<LocationDto> addLocation( @Valid  @RequestBody LocationDto locations)
     {
-        return ResponseEntity.ok(locationSerivce.addNewLocation(locations));
+        return ResponseEntity.ok(locationService.addNewLocation(locations));
     }
     @PutMapping("/{id}")
     public ResponseEntity<LocationDto> editLocation(@PathVariable Integer id ,@Valid @RequestBody LocationDto locations)
     {
-        return ResponseEntity.ok(locationSerivce.updateLocation(id,locations));
+        return ResponseEntity.ok(locationService.updateLocation(id,locations));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLocation(@PathVariable Integer id)
     {
-        locationSerivce.deleteLocation(id);
+        locationService.deleteLocation(id);
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/{id}")
     public ResponseEntity<LocationDto> getLocation(@PathVariable Integer id)
     {
-        LocationDto dto = locationSerivce.getLocation(id);
+        LocationDto dto = locationService.getLocation(id);
         if (dto == null) {
             return ResponseEntity.notFound().build();
         }
@@ -48,7 +47,7 @@ public class LocationController {
     @GetMapping
     public ResponseEntity<List<LocationDto>> getAllLocations()
     {
-        return ResponseEntity.ok(locationSerivce.getAllLocations());
+        return ResponseEntity.ok(locationService.getAllLocations());
     }
 
 }

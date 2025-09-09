@@ -2,22 +2,23 @@ package com.project.Swimming_coach.model.entity;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
-public class RefreshToken {
+public class PasswordResetToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
 
     private String token;
 
     @OneToOne
     private User user;
 
-    private Instant expiryDate;
+    private LocalDateTime expiryDate;
 
-    public RefreshToken() {
+    public boolean isExpired() {
+        return expiryDate.isBefore(LocalDateTime.now());
     }
 
     public Long getId() {
@@ -36,19 +37,19 @@ public class RefreshToken {
         this.token = token;
     }
 
-    public User getUsers() {
+    public User getUser() {
         return user;
     }
 
-    public void setUsers(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Instant getExpiryDate() {
+    public LocalDateTime getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Instant expiryDate) {
+    public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
     }
 }

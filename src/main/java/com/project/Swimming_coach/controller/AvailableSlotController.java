@@ -21,7 +21,7 @@ public class AvailableSlotController {
     }
 
     @PostMapping
-    public ResponseEntity<AvailableSlotDTO> addSlot(@RequestBody SlotRequestDTO slot) {
+    public ResponseEntity<AvailableSlotDto> addSlot(@RequestBody SlotRequestDto slot) {
         return ResponseEntity.ok(availableSlotService.addNewSlot(slot));
     }
 
@@ -38,7 +38,7 @@ public class AvailableSlotController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AvailableSlotDTO> getSlotById(@PathVariable Long id) {
+    public ResponseEntity<AvailableSlotDto> getSlotById(@PathVariable Long id) {
         return ResponseEntity.ok(availableSlotService.getSlotById(id));
 
     }

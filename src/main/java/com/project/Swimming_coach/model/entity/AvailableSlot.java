@@ -1,7 +1,6 @@
 package com.project.Swimming_coach.model.entity;
 import jakarta.persistence.*;
 
-import javax.xml.stream.Location;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,7 +15,7 @@ public class AvailableSlot {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
-    private Locations location;
+    private Location location;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coach_id", nullable = false)
@@ -54,11 +53,11 @@ public class AvailableSlot {
         this.slotId = slotId;
     }
 
-    public Locations getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(Locations location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

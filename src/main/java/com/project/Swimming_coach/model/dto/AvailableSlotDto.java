@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
-public class AvailableSlotDTO {
+public class AvailableSlotDto {
     private Long slotId;
     private Set<String>  dayOfWeek;
     private LocalTime startTime;
@@ -18,9 +18,9 @@ public class AvailableSlotDTO {
     private String levelName;
 
     // Constructors
-    public AvailableSlotDTO() {}
+    public AvailableSlotDto() {}
 
-    public AvailableSlotDTO(Long slotId, Set<String> dayOfWeek, LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate, int maxCapacity, String coachName, String locationName, String levelName) {
+    public AvailableSlotDto(Long slotId, Set<String> dayOfWeek, LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate, int maxCapacity, String coachName, String locationName, String levelName) {
         this.slotId = slotId;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;

@@ -3,16 +3,12 @@ package com.project.Swimming_coach.model.entity;
 import com.project.Swimming_coach.model.enums.Role;
 import com.project.Swimming_coach.model.enums.Status;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
@@ -27,12 +23,12 @@ public class Users {
     private Status status;
     private LocalDate created_at;
 
-    public Users() {
+    public User() {
     }
 
 
 
-    public Users(Integer id, String username, String email, String password, String full_name, String phone_number, Role role, Status status, LocalDate created_at) {
+    public User(Integer id, String username, String email, String password, String full_name, String phone_number, Role role, Status status, LocalDate created_at) {
         this.id = id;
         this.username = username;
         this.email = email;

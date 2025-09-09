@@ -18,7 +18,7 @@ public class Level {
     private String description;
 
     @OneToMany(mappedBy = "level")
-    private List<Locations> locations;
+    private List<Location> locations;
 
     @OneToMany(mappedBy = "level")
     private List<AvailableSlot> availableSlots;
@@ -47,11 +47,11 @@ public class Level {
         this.description = description;
     }
 
-    public List<Locations> getLocations() {
+    public List<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<Locations> locations) {
+    public void setLocations(List<Location> locations) {
         this.locations = locations;
     }
 

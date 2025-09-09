@@ -1,23 +1,17 @@
 // CoachMapper.java
 package com.project.Swimming_coach.mapper;
 
-import com.project.Swimming_coach.model.dto.AvailableSlotDTO;
-import com.project.Swimming_coach.model.dto.CoachDTO;
-import com.project.Swimming_coach.model.dto.CoachRequestDTO;
-import com.project.Swimming_coach.model.entity.AvailableSlot;
+import com.project.Swimming_coach.model.dto.CoachDto;
+import com.project.Swimming_coach.model.dto.CoachRequestDto;
 import com.project.Swimming_coach.model.entity.Coach;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class CoachMapper {
 
     // Entity -> DTO
-    public static CoachDTO toDTO(Coach coach) {
+    public static CoachDto toDTO(Coach coach) {
         if (coach == null) return null;
 
-        CoachDTO dto = new CoachDTO();
+        CoachDto dto = new CoachDto();
         dto.setId(coach.getCoachId());
         dto.setName(coach.getName());
         dto.setSpecialization(coach.getSpecialization());
@@ -33,7 +27,7 @@ public class CoachMapper {
     }
 
     // RequestDTO -> Entity
-    public static Coach toEntity(CoachRequestDTO request) {
+    public static Coach toEntity(CoachRequestDto request) {
         if (request == null) return null;
 
         Coach coach = new Coach();

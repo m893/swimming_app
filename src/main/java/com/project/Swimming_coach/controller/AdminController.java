@@ -1,14 +1,9 @@
 package com.project.Swimming_coach.controller;
 
 import com.project.Swimming_coach.model.dto.AuthResponseDto;
-import com.project.Swimming_coach.model.dto.UserRegisterRequestDto;
-import com.project.Swimming_coach.model.entity.AvailableSlot;
-import com.project.Swimming_coach.model.entity.Locations;
-import com.project.Swimming_coach.service.LocationSerivce;
+import com.project.Swimming_coach.service.LocationService;
 import com.project.Swimming_coach.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +12,11 @@ import java.util.List;
 @RequestMapping("/api/v1/")
 public class AdminController {
     private final UserService userService ;
-    private final LocationSerivce locationSerivce;
+    private final LocationService locationService;
 
-    public AdminController(UserService userService, LocationSerivce locationSerivce) {
+    public AdminController(UserService userService, LocationService locationService) {
         this.userService = userService;
-        this.locationSerivce = locationSerivce;
+        this.locationService = locationService;
     }
 
     @GetMapping("/accounts")
